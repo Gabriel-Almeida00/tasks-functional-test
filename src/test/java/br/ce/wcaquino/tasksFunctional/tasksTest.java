@@ -10,8 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class tasksTest {
 
-	public WebDriver acessarAplicacao() {
-		System.setProperty("webdriver.chrome.drive", "C:\\Users\\User01\\Downloads\\chromedriver_win32");
+	public WebDriver acessarAplicação() {
 		WebDriver driver = new ChromeDriver();
 		driver.navigate().to("http://localhost:8001/tasks/");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -19,18 +18,17 @@ public class tasksTest {
 	}
 
 	@Test
-	public void deveSalvarTarefaComSucesoo() {
-		WebDriver driver = acessarAplicacao();
+	public void deveSalvarTarefaComSucesso() {
+		WebDriver driver = acessarAplicação();
 		try {
-
-			// clicar em add todo
+			// clicar em addTodo
 			driver.findElement(By.id("addTodo")).click();
 
 			// escrever a descricao
-			driver.findElement(By.id("task")).sendKeys("Teste via Selenium");
+			driver.findElement(By.id("task")).sendKeys("teste via selenium");
 
 			// escrever a data
-			driver.findElement(By.id("dueDate")).sendKeys("08/08/2032");
+			driver.findElement(By.id("dueDate")).sendKeys("10/10/2023");
 
 			// clicar em salvar
 			driver.findElement(By.id("saveButton")).click();
@@ -38,24 +36,22 @@ public class tasksTest {
 			// validar mensagem de sucesso
 			String message = driver.findElement(By.id("message")).getText();
 			Assert.assertEquals("Success!", message);
-
 		} finally {
-			// frchar o browser
+			// fechar o driver
 			driver.quit();
 		}
 
 	}
-	
+
 	@Test
 	public void naoDeveSalvarTarefaSemDescricao() {
-		WebDriver driver = acessarAplicacao();
+		WebDriver driver = acessarAplicação();
 		try {
-
-			// clicar em add todo
+			// clicar em addTodo
 			driver.findElement(By.id("addTodo")).click();
 
 			// escrever a data
-			driver.findElement(By.id("dueDate")).sendKeys("08/08/2032");
+			driver.findElement(By.id("dueDate")).sendKeys("10/10/2023");
 
 			// clicar em salvar
 			driver.findElement(By.id("saveButton")).click();
@@ -63,65 +59,57 @@ public class tasksTest {
 			// validar mensagem de sucesso
 			String message = driver.findElement(By.id("message")).getText();
 			Assert.assertEquals("Fill the task description", message);
-
 		} finally {
-			// frchar o browser
+			// fechar o driver
 			driver.quit();
 		}
-
 	}
-	
+
 	@Test
 	public void naoDeveSalvarTarefaSemData() {
-		WebDriver driver = acessarAplicacao();
+		WebDriver driver = acessarAplicação();
 		try {
-
-			// clicar em add todo
+			//clicar em addTodo
 			driver.findElement(By.id("addTodo")).click();
-
-			// escrever a descricao
-			driver.findElement(By.id("task")).sendKeys("Teste via Selenium");
-
-
-			// clicar em salvar
+			
+			//escrever a descricao
+			driver.findElement(By.id("task")).sendKeys("teste via selenium");
+			
+			
+			//clicar em salvar
 			driver.findElement(By.id("saveButton")).click();
-
-			// validar mensagem de sucesso
+			
+			//validar mensagem de sucesso
 			String message = driver.findElement(By.id("message")).getText();
 			Assert.assertEquals("Fill the due date", message);
-
 		} finally {
-			// frchar o browser
+			//fechar o driver
 			driver.quit();
 		}
-
 	}
-	
-	@Test
-	public void naoDeveSalvarTarrefaComDataPassada() {
-		WebDriver driver = acessarAplicacao();
-		try {
 
-			// clicar em add todo
-			driver.findElement(By.id("addTodo")).click();
-
-			// escrever a descricao
-			driver.findElement(By.id("task")).sendKeys("Teste via Selenium");
-
-			// escrever a data
-			driver.findElement(By.id("dueDate")).sendKeys("08/08/2012");
-
-			// clicar em salvar
-			driver.findElement(By.id("saveButton")).click();
-
-			// validar mensagem de sucesso
-			String message = driver.findElement(By.id("message")).getText();
-			Assert.assertEquals("Due date must not be in past", message);
-
-		} finally {
-			// frchar o browser
-			driver.quit();
+		@Test
+		public void naoDeveSalvarTarefaComDataPassada() {
+			WebDriver driver = acessarAplicação();
+			try {
+				//clicar em addTodo
+				driver.findElement(By.id("addTodo")).click();
+				
+				//escrever a descricao
+				driver.findElement(By.id("task")).sendKeys("teste via selenium");
+				
+				//escrever a data
+				driver.findElement(By.id("dueDate")).sendKeys("10/10/2013");
+				
+				//clicar em salvar
+				driver.findElement(By.id("saveButton")).click();
+				
+				//validar mensagem de sucesso
+				String message = driver.findElement(By.id("message")).getText();
+				Assert.assertEquals("Due date must not be in past", message);
+			} finally {
+				//fechar o driver
+				driver.quit();
+			}
 		}
-
-	}
 }
